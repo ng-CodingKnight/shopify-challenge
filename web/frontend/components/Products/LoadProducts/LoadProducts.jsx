@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Card, TextContainer, Text } from "@shopify/polaris";
 import { Toast } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
-import { useAppQuery, useAuthenticatedFetch } from "../hooks";
+import { useAppQuery, useAuthenticatedFetch } from "../../../hooks";
 
-export function ProductsCard() {
+const LoadProducts = () => {
   const emptyToastProps = { content: null };
   const [isLoading, setIsLoading] = useState(true);
   const [toastProps, setToastProps] = useState(emptyToastProps);
@@ -49,7 +49,6 @@ export function ProductsCard() {
       });
     }
   };
-
   return (
     <>
       {toastMarkup}
@@ -76,4 +75,6 @@ export function ProductsCard() {
       </Card>
     </>
   );
-}
+};
+
+export default LoadProducts;
