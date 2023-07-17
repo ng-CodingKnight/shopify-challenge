@@ -4,7 +4,7 @@ import { Text, Card } from '@shopify/polaris'
 
 const ProductItem = ({title = "NEW ARRIVAL", productName, productDescription, price, imageUrl, vendor}) => {
   return (
-    <div style={{ padding: '0.5rem', display: 'flex', flexDirection: 'column', width: '250px', height: '400px', background: '#fff'}}>
+    <div style={{ padding: '0.5rem', display: 'flex', flexDirection: 'column', width: '300px', height: '400px', background: '#fff'}}>
         <ProductImage 
             url={imageUrl?.src}
             alt={imageUrl?.alt}
