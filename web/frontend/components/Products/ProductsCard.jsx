@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Pagination, Spinner } from "@shopify/polaris";
-import { useAppQuery, useAuthenticatedFetch } from "../../hooks";
+import { Spinner } from "@shopify/polaris";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import { useAppQuery } from "../../hooks";
 import ProductItem from "./ProductItem/ProductItem";
 
 
@@ -25,12 +27,18 @@ export function ProductsCard() {
 
   useEffect(() => {
     if (data) {
-      console.log('data', data);
       const productArray = data.data.filter((item) => item.image != null);
       setTotalPages(() => Math.ceil(productArray.length / itemsPerPage));
       setProductList(() => productArray.slice(startIndex, endIndex));
     }
   }, [data, currentPage]);
+
+
+  const handlePageEvent = (event, value) => {
+    console.log('value',value)
+    setCurrentPage(() => value - 1)
+    // setProductList(() => productArray.slice(startIndex, endIndex));
+  }
 
   return (
     <>
@@ -52,7 +60,6 @@ export function ProductsCard() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
             padding: "1rem 2rem",
             gap : '0.5rem'
           }}
@@ -61,6 +68,7 @@ export function ProductsCard() {
             style={{
               display: "flex",
               alignItems: "center",
+              justifyContent:'center',
               gap: "1rem",
               flexWrap: "wrap",
               width: "100%",
@@ -77,13 +85,15 @@ export function ProductsCard() {
               />
             ))}
           </div>
-          <Pagination 
-            hasNext={currentPage != totalPages - 1}
-            hasPrevious={currentPage != 0}
-            onPrevious={() => setCurrentPage(prev => prev - 1)}
-            onNext={() => setCurrentPage(prev => prev + 1)}
-            label={currentPage.toString()}
-          />
+      
+          <Stack spacing={2} sx={{ margin: '0.5rem 0'}}>
+            <Pagination
+              count={totalPages}
+              showFirstButton
+              showLastButton
+              onChange={handlePageEvent}
+            />
+          </Stack>
         </div>
       )}
     </>
